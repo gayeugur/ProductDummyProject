@@ -21,7 +21,7 @@ struct Product: Decodable {
     let rating: Double
     let stock: Int
     let tags: [String]
-    let brand: String
+    let brand: String?
     let sku: String
     let weight: Int
     let dimensions: Dimensions
