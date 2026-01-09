@@ -42,7 +42,5 @@ final class ProductViewModel {
                 state = .error(error.localizedDescription)
             }
         }
-        
     }
-    
 }

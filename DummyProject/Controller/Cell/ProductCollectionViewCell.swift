@@ -16,26 +16,24 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var stockLabel: UILabel!
     @IBOutlet private weak var discountLabel: UILabel!
     @IBOutlet private weak var isStockLabel: UILabel!
-    
-    var product: Product? {
-        didSet  {
-            configure()
-        }
-    }
-    
+    @IBOutlet weak var starRatingView: StarRatingView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
-    private func configure() {
-        guard let product else { return }
-        titleLabel.text = product.title
-        priceLabel.text = "\(product.price) TL"
-        stockLabel.text = "\(product.stock) in stock"
-        discountLabel.text = "\(product.discountPercentage) % off"
-        isStockLabel.text = product.stock > 0 ? "In Stock" : "Sold Out"
+    func configure(with viewModel: ProductCellViewModel) {
+        titleLabel.text = viewModel.title
+        priceLabel.text = viewModel.priceText
+        stockLabel.text = viewModel.stockText
+        discountLabel.text = viewModel.discountText
+        isStockLabel.text = viewModel.isStockText
+        isStockLabel.textColor = viewModel.stockColor
+        starRatingView.configure(rating: viewModel.rating ?? 0)
+        
+        guard let url = viewModel.imageURL else { return }
+        ImageLoader.shared.loadImage(from: url) { [weak self] image in
+            self?.iconImageView.image = image
+        }
     }
-    
 }
