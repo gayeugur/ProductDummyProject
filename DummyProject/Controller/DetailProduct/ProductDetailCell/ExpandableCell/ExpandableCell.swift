@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class ExpandableCell: UICollectionViewCell {
 
     static let reuseId = "ExpandableCell"
@@ -18,13 +17,6 @@ final class ExpandableCell: UICollectionViewCell {
     private var viewModel: ExpandableSectionViewModel?
     var onItemTapped: (() -> Void)?
 
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .label
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     private let tapView = UIView()
 
     override func awakeFromNib() {
@@ -33,24 +25,6 @@ final class ExpandableCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        // Başlık
-        contentView.addSubview(titleLabel)
-        tapView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(tapView)
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            titleLabel.heightAnchor.constraint(equalToConstant: 44),
-            tapView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            tapView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            tapView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            tapView.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        let tap = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
-        tapView.addGestureRecognizer(tap)
-        tapView.isUserInteractionEnabled = true
-
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isScrollEnabled = false
@@ -62,16 +36,14 @@ final class ExpandableCell: UICollectionViewCell {
 
     func configure(with viewModel: ExpandableSectionViewModel) {
         self.viewModel = viewModel
-        titleLabel.text = viewModel.title
         collectionView.reloadData()
         updateHeight(animated: false)
-        // collectionView.isHidden = !viewModel.isExpanded // kaldırıldı, yükseklik ile kontrol edilecek
     }
 
     private func updateHeight(animated: Bool) {
         guard let viewModel else { return }
         collectionView.layoutIfNeeded()
-        let minHeight: CGFloat = 1 // Başlık için min yükseklik, 0 olursa tüm hücre kaybolur
+        let minHeight: CGFloat = 1 // Sadece içerik için min yükseklik
         let targetHeight: CGFloat = viewModel.isExpanded
             ? collectionView.collectionViewLayout.collectionViewContentSize.height
             : minHeight
@@ -96,7 +68,6 @@ final class ExpandableCell: UICollectionViewCell {
         viewModel = nil
         onItemTapped = nil
         collectionViewHeightConstraint.constant = 0
-        titleLabel.text = nil
     }
 }
 
@@ -115,7 +86,6 @@ extension ExpandableCell: UICollectionViewDataSource {
         return cell
     }
 }
-
 
 extension ExpandableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,

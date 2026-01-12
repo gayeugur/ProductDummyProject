@@ -72,7 +72,7 @@ extension ImageCarouselCell: UICollectionViewDelegateFlowLayout {
         let height: CGFloat = 300
         
         var width = collectionView.bounds.width - (horizontalInset * 2)
-        width = 300
+        width = 370
         return CGSize(width: width, height: height)
     }
 }

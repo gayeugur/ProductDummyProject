@@ -34,7 +34,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         starRatingView.configure(rating: viewModel.rating ?? 0)
         iconImageView.isHidden = isHiddenImage
         if isHiddenImage {
-            containerView.backgroundColor = .clear
+          //  containerView.backgroundColor = .clear
         }
         
         guard let url = viewModel.imageURL, !isHiddenImage else { return }

@@ -13,6 +13,8 @@ enum ProductDetailSection {
     case expandable(ExpandableSectionViewModel)
 }
 
+// Section header gösterimi (sadece dosya sonunda bir kez tanımlı olacak)
+
 class ProductDetailViewController: UIViewController {
     
     @IBOutlet weak var productDetailCollectionView: UICollectionView!
@@ -51,22 +53,24 @@ class ProductDetailViewController: UIViewController {
         navigationItem.title = viewModel.productBrand
         productDetailCollectionView.delegate = self
         productDetailCollectionView.dataSource = self
-        
+
         productDetailCollectionView.register(
             UINib(nibName: "ImageCarouselCell", bundle: nil),
             forCellWithReuseIdentifier: ImageCarouselCell.reuseId
         )
-        
+
         productDetailCollectionView.register(
             UINib(nibName: "ProductCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: ProductCollectionViewCell.reuseId)
-        
+
         productDetailCollectionView.register(
             UINib(nibName: "ExpandableCell", bundle: nil),
             forCellWithReuseIdentifier: ExpandableCell.reuseId)
-        
+
+        // Section header register
+        let headerNib = UINib(nibName: "ExpandableSectionHeaderView", bundle: nil)
+        productDetailCollectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ExpandableSectionHeaderView")
     }
-    
 }
 
 extension ProductDetailViewController: UICollectionViewDataSource {
@@ -98,7 +102,7 @@ extension ProductDetailViewController: UICollectionViewDataSource {
             ) as! ProductCollectionViewCell
             cell.configure(with: productVM, isHiddenImage: true)
             return cell
-        case .expandable(var expandableVM):
+        case .expandable(let expandableVM):
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ExpandableCell.reuseId,
                 for: indexPath
@@ -131,15 +135,57 @@ extension ProductDetailViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: 120)
         case .expandable(let vm):
             if vm.isExpanded {
-                // Her item için yaklaşık yükseklik + başlık
+                // Her item için yaklaşık yükseklik
                 let itemHeight: CGFloat = 44
-                let headerHeight: CGFloat = 44
-                let total = headerHeight + CGFloat(vm.items.count) * itemHeight
+                let total = CGFloat(vm.items.count) * itemHeight
                 return CGSize(width: width, height: total)
             } else {
-                // Sadece başlık görünsün (collapse)
-                return CGSize(width: width, height: 44)
+                // Hiç item görünmesin (sadece header)
+                return CGSize(width: width, height: 0.1)
             }
+        }
+    }
+
+    // Section header yüksekliği
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let sectionType = sections[section]
+        switch sectionType {
+        case .expandable:
+            return CGSize(width: UIScreen.main.bounds.width - 32, height: 44)
+        default:
+            return .zero
+        }
+    }
+    // Remove spacing between header and section
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let sectionType = sections[section]
+        switch sectionType {
+        case .expandable:
+            return .zero
+        default:
+            return .zero
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        let section = sections[indexPath.section]
+        switch section {
+        case .expandable(let expandableVM):
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ExpandableSectionHeaderView", for: indexPath) as! ExpandableSectionHeaderView
+            header.configure(title: expandableVM.title, isExpanded: expandableVM.isExpanded)
+            header.tapAction = { [weak self] in
+                guard let self = self else { return }
+                guard case .expandable(var vm) = self.sections[indexPath.section] else { return }
+                vm.isExpanded.toggle()
+                self.sections[indexPath.section] = .expandable(vm)
+                self.productDetailCollectionView.reloadSections(IndexSet(integer: indexPath.section))
+            }
+            return header
+        default:
+            return UICollectionReusableView()
         }
     }
 }
