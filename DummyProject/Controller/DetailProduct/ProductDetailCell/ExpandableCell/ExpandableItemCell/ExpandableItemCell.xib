@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ExpandableItemCell" customModule="DummyProject" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="370" height="59"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="370" height="59"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0OF-wh-chW">
+                        <rect key="frame" x="10" y="10" width="350" height="39"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WFG-wm-qwr">
+                                <rect key="frame" x="0.0" y="0.0" width="350" height="39"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1176470588" green="0.20784313730000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="0OF-wh-chW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="8mf-i8-W3Q"/>
+                <constraint firstAttribute="bottom" secondItem="0OF-wh-chW" secondAttribute="bottom" constant="10" id="cUt-1L-fDm"/>
+                <constraint firstAttribute="trailing" secondItem="0OF-wh-chW" secondAttribute="trailing" constant="10" id="cZp-RS-gfR"/>
+                <constraint firstItem="0OF-wh-chW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="r19-ul-p2l"/>
+            </constraints>
+            <size key="customSize" width="265" height="59"/>
+            <connections>
+                <outlet property="textLabel" destination="WFG-wm-qwr" id="lWN-Sn-DcT"/>
+            </connections>
+            <point key="canvasLocation" x="200.76335877862596" y="111.61971830985917"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -27,7 +27,10 @@ class ViewController: UIViewController {
         productCollectionView.dataSource = self
         viewModel.delegate = self
         
-        productCollectionView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ProductCollectionViewCell")
+        productCollectionView.register(
+            UINib(nibName: "ProductCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: ProductCollectionViewCell.reuseId
+        )
     }
     
 }
@@ -102,5 +105,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         
         return CGSize(width: width, height: 120)
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let product = viewModel.products[indexPath.item]
+        navigateToDetail(with: product)
+    }
+    
+    private func navigateToDetail(with product: Product) {
+        let vm = ProductDetailViewModel(product: product)
+        let detailVC = ProductDetailViewController(viewModel: vm)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
 }

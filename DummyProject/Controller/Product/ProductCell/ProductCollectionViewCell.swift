@@ -9,6 +9,8 @@ import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
     
+    static let reuseId = "ProductCollectionViewCell"
+    
     @IBOutlet private weak var containerView: UIStackView!
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
@@ -22,7 +24,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func configure(with viewModel: ProductCellViewModel) {
+    func configure(with viewModel: ProductCellViewModel, isHiddenImage: Bool = false) {
         titleLabel.text = viewModel.title
         priceLabel.text = viewModel.priceText
         stockLabel.text = viewModel.stockText
@@ -30,8 +32,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
         isStockLabel.text = viewModel.isStockText
         isStockLabel.textColor = viewModel.stockColor
         starRatingView.configure(rating: viewModel.rating ?? 0)
+        iconImageView.isHidden = isHiddenImage
+        if isHiddenImage {
+            containerView.backgroundColor = .clear
+        }
         
-        guard let url = viewModel.imageURL else { return }
+        guard let url = viewModel.imageURL, !isHiddenImage else { return }
         ImageLoader.shared.loadImage(from: url) { [weak self] image in
             self?.iconImageView.image = image
         }

@@ -17,6 +17,9 @@ final class ImageLoader {
     private init() { }
     
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+        ImageLoader.shared.clearCache()
+
+        
         if let cached = cache.object(forKey: urlString as NSString) {
             completion(cached)
             return
@@ -41,4 +44,9 @@ final class ImageLoader {
             
         }.resume()
     }
+    
+    func clearCache() {
+        cache.removeAllObjects()
+    }
+
 }
