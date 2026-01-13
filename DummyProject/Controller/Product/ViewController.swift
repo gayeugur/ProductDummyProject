@@ -87,22 +87,18 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        
         let columns: CGFloat = 2
-        let spacing: CGFloat = 10
+        let spacing: CGFloat = 24
         let inset: CGFloat = 16
-        
-        let totalHorizontalPadding =
-        (inset * 2) + (spacing * (columns - 1))
-        
-        let width =
-        (collectionView.bounds.width - totalHorizontalPadding)
-        
+        let totalHorizontalPadding = (inset * 2) + (spacing * (columns - 1))
+        let width = (collectionView.bounds.width - totalHorizontalPadding)
         return CGSize(width: width, height: 120)
     }
     

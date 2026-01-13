@@ -151,7 +151,7 @@ extension ProductDetailViewController: UICollectionViewDelegateFlowLayout {
         let sectionType = sections[section]
         switch sectionType {
         case .expandable:
-            return CGSize(width: UIScreen.main.bounds.width - 32, height: 44)
+            return CGSize(width: UIScreen.main.bounds.width - 64, height: 44)
         default:
             return .zero
         }
@@ -161,9 +161,20 @@ extension ProductDetailViewController: UICollectionViewDelegateFlowLayout {
         let sectionType = sections[section]
         switch sectionType {
         case .expandable:
-            return .zero
+            // Sadece alt boşluk bırak, header ile cell arası boşluk olmasın
+            return UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
         default:
             return .zero
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        let sectionType = sections[section]
+        switch sectionType {
+        case .expandable:
+            return 0 // Header ile cell arası boşluk olmasın
+        default:
+            return 0
         }
     }
     

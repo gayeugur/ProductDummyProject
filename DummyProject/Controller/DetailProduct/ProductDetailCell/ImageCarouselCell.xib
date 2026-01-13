@@ -29,7 +29,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="1ah-HL-lDZ">
-                        <rect key="frame" x="148.66666666666666" y="209" width="73" height="10"/>
+                        <rect key="frame" x="148.66666666666666" y="204" width="73" height="10"/>
                         <color key="tintColor" systemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="aUI-5N-aYf"/>
@@ -40,14 +40,14 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" name="backgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="1ah-HL-lDZ" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="0Ys-BO-nwm"/>
                 <constraint firstAttribute="bottom" secondItem="A4a-Vv-r3C" secondAttribute="bottom" id="0r7-dG-F75"/>
                 <constraint firstItem="A4a-Vv-r3C" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="KaF-Z7-SOI"/>
                 <constraint firstAttribute="trailing" secondItem="A4a-Vv-r3C" secondAttribute="trailing" id="KkK-xW-deo"/>
                 <constraint firstItem="A4a-Vv-r3C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="M8l-BO-oeU"/>
-                <constraint firstAttribute="bottom" secondItem="1ah-HL-lDZ" secondAttribute="bottom" constant="5" id="htR-ae-PJo"/>
+                <constraint firstAttribute="bottom" secondItem="1ah-HL-lDZ" secondAttribute="bottom" constant="10" id="htR-ae-PJo"/>
             </constraints>
             <size key="customSize" width="247" height="54"/>
             <connections>
@@ -59,7 +59,7 @@
     </objects>
     <resources>
         <namedColor name="backgroundColor">
-            <color red="0.95300000905990601" green="0.94900000095367432" blue="0.92500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98039215686274506" green="0.96862745098039216" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="underPageBackgroundColor">
             <color red="0.70980392156862748" green="0.71764705882352942" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

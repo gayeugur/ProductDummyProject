@@ -33,9 +33,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
         isStockLabel.textColor = viewModel.stockColor
         starRatingView.configure(rating: viewModel.rating ?? 0)
         iconImageView.isHidden = isHiddenImage
-        if isHiddenImage {
-          //  containerView.backgroundColor = .clear
-        }
         
         guard let url = viewModel.imageURL, !isHiddenImage else { return }
         ImageLoader.shared.loadImage(from: url) { [weak self] image in

@@ -3,8 +3,8 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +31,7 @@
                 </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+            <color key="backgroundColor" name="backgroundColor"/>
             <constraints>
                 <constraint firstItem="fmW-Ei-ojD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="9Uh-r6-S9u"/>
                 <constraint firstItem="fmW-Ei-ojD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="AGs-Gh-rgi"/>
@@ -42,8 +42,8 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="secondarySystemGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="backgroundColor">
+            <color red="0.98039215686274506" green="0.96862745098039216" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

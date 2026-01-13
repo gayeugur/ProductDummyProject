@@ -11,13 +11,10 @@ final class ExpandableCell: UICollectionViewCell {
 
     static let reuseId = "ExpandableCell"
 
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var collectionView: UICollectionView!
 
     private var viewModel: ExpandableSectionViewModel?
     var onItemTapped: (() -> Void)?
-
-    private let tapView = UIView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +25,17 @@ final class ExpandableCell: UICollectionViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isScrollEnabled = false
+
+      
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            layout.minimumLineSpacing = 8
+            layout.minimumInteritemSpacing = 0
+        }
+
+
         collectionView.register(
             UINib(nibName: "ExpandableItemCell", bundle: nil),
             forCellWithReuseIdentifier: ExpandableItemCell.reuseId
@@ -36,40 +44,45 @@ final class ExpandableCell: UICollectionViewCell {
 
     func configure(with viewModel: ExpandableSectionViewModel) {
         self.viewModel = viewModel
+
+        // 🔑 Expand / collapse kontrolü
+        collectionView.isHidden = !viewModel.isExpanded
+
         collectionView.reloadData()
-        updateHeight(animated: false)
-    }
-
-    private func updateHeight(animated: Bool) {
-        guard let viewModel else { return }
-        collectionView.layoutIfNeeded()
-        let minHeight: CGFloat = 1 // Sadece içerik için min yükseklik
-        let targetHeight: CGFloat = viewModel.isExpanded
-            ? collectionView.collectionViewLayout.collectionViewContentSize.height
-            : minHeight
-        collectionViewHeightConstraint.constant = targetHeight
-        if animated {
-            UIView.animate(withDuration: 0.25) {
-                self.layoutIfNeeded()
-            }
-        }
-    }
-
-    @objc private func headerTapped() {
-        onItemTapped?()
-    }
-
-    func toggleExpansion() {
-        updateHeight(animated: true)
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         viewModel = nil
         onItemTapped = nil
-        collectionViewHeightConstraint.constant = 0
+        collectionView.isHidden = true
     }
+    
+    override func preferredLayoutAttributesFitting(
+        _ layoutAttributes: UICollectionViewLayoutAttributes
+    ) -> UICollectionViewLayoutAttributes {
+
+        setNeedsLayout()
+        layoutIfNeeded()
+
+        let size = contentView.systemLayoutSizeFitting(
+            CGSize(
+                width: layoutAttributes.frame.width,
+                height: UIView.layoutFittingCompressedSize.height
+            ),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+
+        var frame = layoutAttributes.frame
+        frame.size.height = size.height
+        layoutAttributes.frame = frame
+
+        return layoutAttributes
+    }
+
 }
+
 
 extension ExpandableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

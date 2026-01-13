@@ -11,63 +11,67 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ExpandableItemCell" customModule="DummyProject" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="370" height="59"/>
+            <rect key="frame" x="0.0" y="0.0" width="370" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="370" height="59"/>
+                <rect key="frame" x="0.0" y="0.0" width="370" height="44"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0OF-wh-chW">
-                        <rect key="frame" x="0.0" y="0.0" width="370" height="49"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cardBGView">
+                        <rect key="frame" x="8" y="4" width="358" height="36"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WFG-wm-qwr">
-                                <rect key="frame" x="0.0" y="0.0" width="370" height="49"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alt Başlık" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WFG-wm-qwr">
+                                <rect key="frame" x="5" y="8" width="352" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <color key="textColor" red="0.17999999999999999" green="0.17999999999999999" blue="0.17999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" name="backgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WFG-wm-qwr" firstAttribute="leading" secondItem="cardBGView" secondAttribute="leading" constant="5" id="leading-label"/>
+                            <constraint firstItem="WFG-wm-qwr" firstAttribute="top" secondItem="cardBGView" secondAttribute="top" constant="8" id="top-label"/>
+                        </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                <integer key="value" value="3"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                <color key="value" name="backgroundColor"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <real key="value" value="10"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                <real key="value" value="0.14999999999999999"/>
+                                <real key="value" value="0.080000000000000002"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                <integer key="value" value="8"/>
+                                <integer key="value" value="5"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                <size key="value" width="0.0" height="4"/>
+                                <size key="value" width="0.0" height="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
+                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                    </stackView>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" name="cellColor"/>
             <constraints>
-                <constraint firstItem="0OF-wh-chW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8mf-i8-W3Q"/>
-                <constraint firstAttribute="bottom" secondItem="0OF-wh-chW" secondAttribute="bottom" constant="10" id="cUt-1L-fDm"/>
-                <constraint firstAttribute="trailing" secondItem="0OF-wh-chW" secondAttribute="trailing" id="cZp-RS-gfR"/>
-                <constraint firstItem="0OF-wh-chW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="r19-ul-p2l"/>
+                <constraint firstAttribute="bottom" secondItem="cardBGView" secondAttribute="bottom" constant="4" id="bottom-card"/>
+                <constraint firstAttribute="bottom" secondItem="WFG-wm-qwr" secondAttribute="bottom" constant="8" id="bottom-label"/>
+                <constraint firstItem="cardBGView" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="leading-card"/>
+                <constraint firstItem="cardBGView" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="top-card"/>
+                <constraint firstAttribute="trailing" secondItem="cardBGView" secondAttribute="trailing" constant="4" id="trailing-card"/>
+                <constraint firstAttribute="trailing" secondItem="WFG-wm-qwr" secondAttribute="trailing" constant="5" id="trailing-label"/>
             </constraints>
-            <size key="customSize" width="265" height="59"/>
             <connections>
                 <outlet property="textLabel" destination="WFG-wm-qwr" id="lWN-Sn-DcT"/>
             </connections>
-            <point key="canvasLocation" x="200.76335877862596" y="111.61971830985917"/>
+            <point key="canvasLocation" x="217" y="264"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <namedColor name="backgroundColor">
-            <color red="0.95300000905990601" green="0.94900000095367432" blue="0.92500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="cellColor">
+            <color red="1" green="0.99215686274509807" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

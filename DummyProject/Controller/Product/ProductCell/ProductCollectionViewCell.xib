@@ -130,29 +130,11 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="backgroundColor"/>
+                        <color key="backgroundColor" name="cellColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="12a-iC-blP" secondAttribute="bottom" id="HYq-3A-2TJ"/>
                             <constraint firstAttribute="trailing" secondItem="12a-iC-blP" secondAttribute="trailing" id="VSX-bS-Auh"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                <integer key="value" value="3"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                <color key="value" name="backgroundColor"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                <real key="value" value="0.14999999999999999"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                <integer key="value" value="8"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                <size key="value" width="0.0" height="4"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </stackView>
                 </subviews>
             </view>
@@ -179,8 +161,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <namedColor name="backgroundColor">
-            <color red="0.95300000905990601" green="0.94900000095367432" blue="0.92500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="cellColor">
+            <color red="1" green="0.99215686274509807" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
