@@ -38,10 +38,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="Oqg-L3-5c7" firstAttribute="top" secondItem="Bwq-7x-yhS" secondAttribute="top" constant="5" id="Smi-ts-oH3"/>
+                        <constraint firstItem="Oqg-L3-5c7" firstAttribute="top" secondItem="Bwq-7x-yhS" secondAttribute="top" constant="2" id="Smi-ts-oH3"/>
                         <constraint firstAttribute="trailing" secondItem="Oqg-L3-5c7" secondAttribute="trailing" constant="5" id="rQY-Eu-zCE"/>
                         <constraint firstItem="Oqg-L3-5c7" firstAttribute="leading" secondItem="Bwq-7x-yhS" secondAttribute="leading" constant="5" id="uxO-iz-M8q"/>
-                        <constraint firstAttribute="bottom" secondItem="Oqg-L3-5c7" secondAttribute="bottom" constant="5" id="zTt-i2-vAF"/>
+                        <constraint firstAttribute="bottom" secondItem="Oqg-L3-5c7" secondAttribute="bottom" constant="2" id="zTt-i2-vAF"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

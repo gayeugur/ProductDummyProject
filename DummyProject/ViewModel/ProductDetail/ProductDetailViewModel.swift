@@ -49,7 +49,7 @@ final class ProductDetailViewModel {
             ExpandableSectionViewModel(
                 title: "Teslimat & Garanti",
                 items: [
-                    ExpandableItem(icon: nil, text: "Ships in 3-5 business days"),
+                    ExpandableItem(icon: nil, text: product.shippingInformation),
                     ExpandableItem(icon: nil, text: product.warrantyInformation),
                     ExpandableItem(icon: nil, text: product.returnPolicy)
                 ],
@@ -60,7 +60,9 @@ final class ProductDetailViewModel {
                 items: [
                     ExpandableItem(icon: nil, text: "SKU: \(product.sku)"),
                     ExpandableItem(icon: nil, text: "Weight: \(product.weight)g"),
-                    ExpandableItem(icon: nil, text: "Dimensions: \(product.dimensions.width) x \(product.dimensions.height) x \(product.dimensions.depth)")
+                    ExpandableItem(icon: nil, text: "Dimensions: \(product.dimensions.width) x \(product.dimensions.height) x \(product.dimensions.depth)"),
+                    ExpandableItem(icon: nil, text: "Availability: \(product.availabilityStatus)"),
+                    ExpandableItem(icon: nil, text: "Minimum Order: \(product.minimumOrderQuantity)")
                 ],
                 isExpanded: false
             ),
