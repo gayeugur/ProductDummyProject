@@ -18,7 +18,7 @@ final class StarRatingView: UIView {
     private let halfImage = UIImage(systemName: "star.lefthalf.fill")?.withRenderingMode(.alwaysTemplate)
     private let emptyImage = UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate)
     
-    // MARK: - ınıt
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
