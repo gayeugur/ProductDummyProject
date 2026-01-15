@@ -8,17 +8,22 @@
 import Foundation
 
 struct ImageCarouselViewModel {
-    let imageURLs: [String]
+    private let imageURLs: [String]
     
     init(imageURLs: [String]) {
         self.imageURLs = imageURLs
     }
     
+    // MARK: - Data Source Methods
     var numberOfItems: Int {
-        imageURLs.count
+        return imageURLs.count
+    }
+    
+    var numberOfPages: Int {
+        return imageURLs.count
     }
     
     func imageURL(at index: Int) -> String {
-        imageURLs[index]
+        return imageURLs[index]
     }
 }

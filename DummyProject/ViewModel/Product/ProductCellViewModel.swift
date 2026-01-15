@@ -39,15 +39,15 @@ final class ProductCellViewModel {
         StockStatus(from: product.availabilityStatus)
     }
     
-    var stockColor: UIColor {
-        stockStatus.color
-    }
-    
     var imageURL: String? {
         product.images.first
     }
     
     var rating: Double? {
         product.rating
+    }
+
+    var starRatingViewModel: StarRatingViewModel {
+        StarRatingViewModel.make(rating: product.rating)
     }
 }

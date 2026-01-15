@@ -8,19 +8,29 @@
 import UIKit
 
 final class ExpandableCell: UICollectionViewCell {
-
-    static let reuseId = "ExpandableCell"
-
+    
+    // MARK: - ıboutlet
     @IBOutlet private weak var collectionView: UICollectionView!
-
+    
+    // MARK: - propertıes
+    static let reuseId = "ExpandableCell"
     private var viewModel: ExpandableSectionViewModel?
     var onItemTapped: (() -> Void)?
-
+    
+    // MARK: - ınıt
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        viewModel = nil
+        onItemTapped = nil
+        collectionView.isHidden = true
+    }
+    
+    // MARK: - functıons
     private func setupUI() {
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -42,27 +52,19 @@ final class ExpandableCell: UICollectionViewCell {
             forCellWithReuseIdentifier: ExpandableItemCell.reuseId
         )
     }
-
+    
     func configure(with viewModel: ExpandableSectionViewModel) {
         self.viewModel = viewModel
         collectionView.isHidden = !viewModel.isExpanded
         collectionView.reloadData()
         collectionView.layoutIfNeeded()
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        viewModel = nil
-        onItemTapped = nil
-        collectionView.isHidden = true
-    }
-
 }
 
-
+// MARK: - UICollectionViewDataSource
 extension ExpandableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.items.count ?? 0
+        return viewModel?.numberOfItems ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -70,40 +72,33 @@ extension ExpandableCell: UICollectionViewDataSource {
             withReuseIdentifier: ExpandableItemCell.reuseId,
             for: indexPath
         ) as? ExpandableItemCell,
-              let item = viewModel?.items[indexPath.item] else {
+              let viewModel = viewModel else {
             return UICollectionViewCell()
         }
+        let item = viewModel.item(at: indexPath.item)
         cell.configure(with: item)
         return cell
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension ExpandableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         onItemTapped?()
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ExpandableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let item = viewModel?.items[indexPath.item] else {
+        guard let viewModel = viewModel else {
             return CGSize(width: collectionView.bounds.width, height: 20)
         }
         
-        let horizontalPadding: CGFloat = 16
-        let verticalPadding: CGFloat = 4
-        let minimumHeight: CGFloat = 20
-        
         let width = collectionView.bounds.width
-        let font = UIFont.systemFont(ofSize: 16)
-        let textHeight = item.text.heightWithConstrainedWidth(
-            width: width - horizontalPadding,
-            font: font
-        )
-        let finalHeight = max(textHeight + verticalPadding, minimumHeight)
-        
-        return CGSize(width: width, height: finalHeight)
+        let height = viewModel.itemHeight(at: indexPath.item, width: width)
+        return CGSize(width: width, height: height)
     }
 }

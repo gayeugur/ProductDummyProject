@@ -9,18 +9,19 @@ import UIKit
 
 class ExpandableItemCell: UICollectionViewCell {
     
+    // MARK: - propertıes
     static let reuseId = "ExpandableItemCell"
     
+    // MARK: - ıboutlet
     @IBOutlet weak var textLabel: UILabel!
     
+    // MARK: - ınıt
     override func awakeFromNib() {
         super.awakeFromNib()
-        textLabel.numberOfLines = 0
-        textLabel.lineBreakMode = .byWordWrapping
     }
     
+    // MARK: - functıons
     func configure(with item: ExpandableItem) {
         textLabel.text = item.text
-        print("🟣 ExpandableItemCell configured with text: \(item.text.prefix(50))")
     }
 }

@@ -14,12 +14,14 @@ enum ProductDetailSection {
 }
 
 class ProductDetailViewController: UIViewController {
-    
+    // MARK: - ıboutlet
     @IBOutlet weak var productDetailCollectionView: UICollectionView!
     
+    // MARK: - properties
     private let viewModel: ProductDetailViewModel
     private var sections: [ProductDetailSection] = []
     
+    // MARK: - init
     init(viewModel: ProductDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -29,12 +31,14 @@ class ProductDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         buildSections()
     }
     
+    // MARK: - functions
     private func buildSections() {
         var allSections: [ProductDetailSection] = [
             .imageCarousel(viewModel.imageCarouselVM),
@@ -74,6 +78,7 @@ class ProductDetailViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ProductDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
@@ -110,7 +115,7 @@ extension ProductDetailViewController: UICollectionViewDataSource {
             ) as! ExpandableCell
             cell.onItemTapped = { [weak self] in
                 guard let self = self else { return }
-                guard case .expandable(var vm) = self.sections[indexPath.section] else { return }
+                guard case .expandable(let vm) = self.sections[indexPath.section] else { return }
                 vm.isExpanded.toggle()
                 self.sections[indexPath.section] = .expandable(vm)
                 self.productDetailCollectionView.reloadSections(IndexSet(integer: indexPath.section))
@@ -119,14 +124,14 @@ extension ProductDetailViewController: UICollectionViewDataSource {
             return cell
         }
     }
-    
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ProductDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = UIScreen.main.bounds.width - 32
+        let width = view.bounds.width - 32
         let section = sections[indexPath.section]
         switch section {
         case .imageCarousel:
@@ -134,66 +139,32 @@ extension ProductDetailViewController: UICollectionViewDelegateFlowLayout {
         case .productInfo:
             return CGSize(width: width, height: 120)
         case .expandable(let vm):
-            return vm.isExpanded 
-                ? CGSize(width: width, height: calculateExpandedHeight(for: vm, width: width))
-                : CGSize(width: width, height: 0.1)
+            return CGSize(
+                width: width,
+                height: vm.isExpanded
+                ? vm.expandedHeight(for: width)
+                : 0.1)
         }
-    }
-    
-    private func calculateExpandedHeight(for vm: ExpandableSectionViewModel, width: CGFloat) -> CGFloat {
-        let cardPadding: CGFloat = 16
-        let labelPadding: CGFloat = 16
-        let itemVerticalPadding: CGFloat = 4
-        let itemSpacing: CGFloat = 2
-        let collectionViewPadding: CGFloat = 8
-        let minimumItemHeight: CGFloat = 20
-        let minimumTotalHeight: CGFloat = 50
-        
-        let labelWidth = width - cardPadding - labelPadding
-        let font = UIFont.systemFont(ofSize: 16)
-        
-        var totalHeight: CGFloat = vm.items.reduce(0) { height, item in
-            let textHeight = item.text.heightWithConstrainedWidth(width: labelWidth, font: font)
-            return height + max(textHeight + itemVerticalPadding, minimumItemHeight)
-        }
-        
-        if vm.items.count > 1 {
-            totalHeight += CGFloat(vm.items.count - 1) * itemSpacing
-        }
-        
-        totalHeight += collectionViewPadding
-        return max(totalHeight, minimumTotalHeight)
     }
 
-    // Section header yüksekliği
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let sectionType = sections[section]
         switch sectionType {
         case .expandable:
-            return CGSize(width: UIScreen.main.bounds.width - 64, height: 36)
+            let width = collectionView.bounds.width - 64
+            return CGSize(width: width, height: 36)
         default:
             return .zero
         }
     }
-    // Remove spacing between header and section
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let sectionType = sections[section]
         switch sectionType {
         case .expandable:
-            // Sadece alt boşluk bırak, header ile cell arası boşluk olmasın
             return UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 0)
         default:
             return .zero
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        let sectionType = sections[section]
-        switch sectionType {
-        case .expandable:
-            return 0 // Header ile cell arası boşluk olmasın
-        default:
-            return 0
         }
     }
     
@@ -216,7 +187,7 @@ extension ProductDetailViewController: UICollectionViewDelegateFlowLayout {
     }
     
     private func toggleSection(at index: Int) {
-        guard case .expandable(var vm) = sections[index] else { return }
+        guard case .expandable(let vm) = sections[index] else { return }
         vm.isExpanded.toggle()
         sections[index] = .expandable(vm)
         productDetailCollectionView.reloadSections(IndexSet(integer: index))

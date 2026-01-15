@@ -9,18 +9,21 @@ import UIKit
 
 class ImageItemCell: UICollectionViewCell {
     
-    static let reuseId = "ImageItemCell"
-    
+    // MARK: - ıboutlet
     @IBOutlet weak var imageView: UIImageView!
     
+    // MARK: - properties
+    static let reuseId = "ImageItemCell"
     private var currentURL: String?
     
+    // MARK: - ınıt
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
         currentURL = nil
     }
     
+    // MARK: - functions
     func configure(with urlString: String) {
         currentURL = urlString
         

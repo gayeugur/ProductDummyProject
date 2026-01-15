@@ -8,13 +8,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+    // MARK: - ıboutlet
     @IBOutlet weak var productCollectionView: UICollectionView!
     
+    // MARK: - properties
     private let viewModel = ProductViewModel(
         networkManager: .shared
     )
     
+    // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -22,6 +24,7 @@ class ViewController: UIViewController {
         navigationItem.title = "Products"
     }
     
+    // MARK: - functions
     private func configure() {
         productCollectionView.delegate = self
         productCollectionView.dataSource = self
@@ -35,6 +38,7 @@ class ViewController: UIViewController {
     
 }
 
+// MARK: - ProductViewModelDelegate
 extension ViewController: ProductViewModelDelegate {
     func didUpdate(state: ProductsViewState) {
         switch state {
@@ -70,25 +74,38 @@ extension ViewController: ProductViewModelDelegate {
     
 }
 
+// MARK: - UICollectionViewDataSource
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.products.count
+        return viewModel.numberOfProducts
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as? ProductCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let product = viewModel.products[indexPath.item]
-        let cellVM = ProductCellViewModel(product: product)
+        let cellVM = viewModel.cellViewModel(at: indexPath.item)
         cell.configure(with: cellVM)
         return cell
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+// MARK: - UICollectionViewDelegate
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let product = viewModel.products[indexPath.item]
+        navigateToDetail(with: product)
+    }
+    
+    private func navigateToDetail(with product: Product) {
+        let vm = ProductDetailViewModel(product: product)
+        let detailVC = ProductDetailViewController(viewModel: vm)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+}
 
-
+// MARK: - UICollectionViewDelegateFlowLayout
+extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -101,16 +118,4 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         let width = (collectionView.bounds.width - totalHorizontalPadding)
         return CGSize(width: width, height: 120)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let product = viewModel.products[indexPath.item]
-        navigateToDetail(with: product)
-    }
-    
-    private func navigateToDetail(with product: Product) {
-        let vm = ProductDetailViewModel(product: product)
-        let detailVC = ProductDetailViewController(viewModel: vm)
-        navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
 }

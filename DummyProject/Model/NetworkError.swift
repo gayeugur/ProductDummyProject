@@ -16,13 +16,13 @@ enum NetworkError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "Geçersiz URL"
+            return "Invalid URL"
         case .noData:
-            return "Veri bulunamadı"
+            return "No data available"
         case .decodingError:
-            return "Veri çözümlenemedi"
+            return "Failed to decode data"
         case .serverError(let code):
-            return "Sunucu hatası: \(code)"
+            return "Server error: \(code)"
         }
     }
 }

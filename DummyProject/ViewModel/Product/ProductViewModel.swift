@@ -28,6 +28,20 @@ final class ProductViewModel {
         self.networkManager = networkManager
     }
     
+    // MARK: - Data Source Methods
+    var numberOfProducts: Int {
+        return products.count
+    }
+    
+    func product(at index: Int) -> Product {
+        return products[index]
+    }
+    
+    func cellViewModel(at index: Int) -> ProductCellViewModel {
+        let product = products[index]
+        return ProductCellViewModel(product: product)
+    }
+    
     func fetchProducts() {
         state = .loading
         

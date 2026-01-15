@@ -8,7 +8,7 @@
 import UIKit
 
 class PopupViewController: UIViewController {
-    
+    // MARK: - ıboutlet
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var buttonStackView: UIStackView!
@@ -16,8 +16,10 @@ class PopupViewController: UIViewController {
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var dimView: UIView! 
     
+    // MARK: - properties
     private let viewModel: PopupViewModelProtocol
     
+    // MARK: - init
     init(viewModel: PopupViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -29,12 +31,13 @@ class PopupViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       // Arka planı biraz soluk yap
         bind()
     }
     
+    // MARK: - funitions
     private func bind() {
         titleLabel.text = viewModel.title
         descriptionLabel.text = viewModel.message
@@ -50,6 +53,7 @@ class PopupViewController: UIViewController {
         action.handler?()
     }
     
+    // MARK: - ıbaction
     @IBAction func firstButtonAction(_ sender: Any) {
         handleAction(at: 0)
     }
