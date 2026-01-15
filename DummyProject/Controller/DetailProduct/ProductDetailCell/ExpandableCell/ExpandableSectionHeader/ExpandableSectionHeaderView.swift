@@ -15,7 +15,6 @@ final class ExpandableSectionHeaderView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Varsayılan ikon
         iconImageView.image = UIImage(systemName: "chevron.down")
     }
     

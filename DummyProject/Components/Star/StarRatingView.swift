@@ -8,27 +8,27 @@
 import UIKit
 
 final class StarRatingView: UIView {
-
+    
     @IBOutlet weak var contentView: UIView!
     
     @IBOutlet private var starImageViews: [UIImageView]!
-
+    
     private let filledImage = UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate)
     private let halfImage = UIImage(systemName: "star.lefthalf.fill")?.withRenderingMode(.alwaysTemplate)
     private let emptyImage = UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate)
-
+    
     // MARK: - Init
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-
+    
     private func commonInit() {
         let nib = UINib(nibName: "StarRatingView", bundle: .main)
         nib.instantiate(withOwner: self)
@@ -40,27 +40,21 @@ final class StarRatingView: UIView {
             $0.tintColor = .systemYellow
         }
     }
-
+    
     // MARK: - Public API
-
-    func configure(rating: Double, maxStars: Int = 5) {
-        let filledStars = Int(rating)
-        let hasHalfStar = (rating - Double(filledStars)) >= 0.5
-
-        for index in 0..<maxStars {
+    
+    func configure(with viewModel: StarRatingViewModel) {
+        for (index, state) in viewModel.stars.enumerated() {
             let imageView = starImageViews[index]
-
-            if index < filledStars {
+            
+            switch state {
+            case .filled:
                 imageView.image = filledImage
-            } else if index == filledStars && hasHalfStar {
+            case .half:
                 imageView.image = halfImage
-            } else {
+            case .empty:
                 imageView.image = emptyImage
             }
         }
-    }
-    
-    func configure(rating: Int) {
-        configure(rating: Double(rating))
     }
 }

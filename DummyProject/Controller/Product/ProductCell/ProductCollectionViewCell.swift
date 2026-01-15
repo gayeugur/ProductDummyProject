@@ -30,8 +30,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
         stockLabel.text = viewModel.stockText
         discountLabel.text = viewModel.discountText
         isStockLabel.text = viewModel.isStockText
-        isStockLabel.textColor = viewModel.stockColor
-        starRatingView.configure(rating: viewModel.rating ?? 0)
+        isStockLabel.textColor = viewModel.stockStatus.color
+        starRatingView.configure(with: viewModel.starRatingViewModel)
         iconImageView.isHidden = isHiddenImage
         
         guard let url = viewModel.imageURL, !isHiddenImage else { return }

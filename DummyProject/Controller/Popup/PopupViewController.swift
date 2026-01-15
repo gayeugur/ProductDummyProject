@@ -31,7 +31,6 @@ class PopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // Arka planı biraz soluk yap
         bind()
     }
     

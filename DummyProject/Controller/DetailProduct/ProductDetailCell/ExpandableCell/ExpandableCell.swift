@@ -56,9 +56,7 @@ final class ExpandableCell: UICollectionViewCell {
         onItemTapped = nil
         collectionView.isHidden = true
     }
-
 }
-
 
 extension ExpandableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -103,7 +101,6 @@ extension ExpandableCell: UICollectionViewDelegateFlowLayout {
             font: font
         )
         let finalHeight = max(textHeight + verticalPadding, minimumHeight)
-        
         return CGSize(width: width, height: finalHeight)
     }
 }

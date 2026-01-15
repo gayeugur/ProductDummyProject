@@ -87,8 +87,6 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
-
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -112,5 +110,4 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
         let detailVC = ProductDetailViewController(viewModel: vm)
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
 }

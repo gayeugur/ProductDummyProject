@@ -64,7 +64,7 @@ final class ProductDetailViewModel {
                     ExpandableItem(icon: nil, text: "Availability: \(product.availabilityStatus)"),
                     ExpandableItem(icon: nil, text: "Minimum Order: \(product.minimumOrderQuantity)")
                 ],
-                isExpanded: false
+                isExpanded: true
             ),
             ExpandableSectionViewModel(
                 title: "Yorumlar (\(product.reviews.count))",

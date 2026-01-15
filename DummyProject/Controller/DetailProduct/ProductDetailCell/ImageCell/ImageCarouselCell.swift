@@ -70,15 +70,12 @@ extension ImageCarouselCell: UICollectionViewDelegateFlowLayout {
         
         let horizontalInset: CGFloat = 5
         let height: CGFloat = 300
-        
         var width = collectionView.bounds.width - (horizontalInset * 2)
-        width = 370
         return CGSize(width: width, height: height)
     }
 }
 
 extension ImageCarouselCell: UIScrollViewDelegate {
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
         pageControl.currentPage = page
