@@ -101,7 +101,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" name="backgroundColor" catalog=""/>
+            <color key="backgroundColor" name="backgroundColor"/>
             <constraints>
                 <constraint firstItem="1Ne-eF-V70" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Lom-ZY-6SZ"/>
                 <constraint firstItem="1Ne-eF-V70" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Uvc-tJ-YuG"/>
@@ -112,6 +112,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="backgroundColor">
+            <color red="0.98000001907348633" green="0.96899998188018799" blue="0.94900000095367432" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="popup_background">
             <color red="1" green="0.80400002002716064" blue="0.78799998760223389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

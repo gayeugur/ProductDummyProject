@@ -35,15 +35,7 @@ final class ExpandableCell: UICollectionViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isScrollEnabled = false
-        configureLayout()
         registerCells()
-    }
-    
-    private func configureLayout() {
-        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
     }
     
     private func registerCells() {
